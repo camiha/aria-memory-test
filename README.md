@@ -22,3 +22,9 @@ pnpm test         # logic tests (vitest)
 pnpm build        # production build
 pnpm preview      # preview the build output
 ```
+
+## Deploy
+
+Pushing to `main` builds and deploys to GitHub Pages via
+`.github/workflows/deploy.yml`. In the repository settings, set
+**Settings > Pages > Build and deployment > Source** to `GitHub Actions`.
