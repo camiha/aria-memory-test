@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roles — WAI-ARIA 1.3 Memory Test</title>
+    <script>
+      (() => {
+        try {
+          const theme = localStorage.getItem("theme");
+          if (theme === "dark" || theme === "light") {
+            document.documentElement.dataset.theme = theme;
+          }
+        } catch {}
+      })();
+    </script>
+    <script type="module" src="/src/scripts/main.js"></script>
+  </head>
+  <body data-page="roles">
+    <div class="topbar">
+      <nav aria-label="Site">
+        <a href="../">&larr; WAI-ARIA 1.3 Memory Test</a>
+      </nav>
+      <button id="theme-toggle" type="button" aria-pressed="false">Dark mode</button>
+    </div>
+    <header>
+      <h1 id="title">Roles<br />Memory Test</h1>
+      <p class="lede">
+        How many
+        <a href="https://www.w3.org/TR/wai-aria-1.3/">WAI-ARIA 1.3</a>
+        roles can you remember? All <span data-total>88</span> roles
+        (abstract roles excluded).
+      </p>
+    </header>
+    <main>
+      <noscript><div class="feedback"><p>Enable JavaScript to make guesses.</p></div></noscript>
+      <form id="form" aria-labelledby="title">
+        <label for="guess">Role</label>
+        <input
+          id="guess"
+          type="text"
+          required
+          autocomplete="off"
+          autocapitalize="none"
+          autocorrect="off"
+          spellcheck="false"
+          autofocus
+        />
+        <button type="submit">Guess</button>
+      </form>
+      <div id="feedback" class="feedback" role="status" tabindex="-1"></div>
+      <section class="score" aria-label="Score">
+        <p>
+          <span>Recalled <b data-count>0</b> / <span data-total>88</span></span>
+          <span class="score-remain"><b data-remain>88</b> to go</span>
+        </p>
+        <progress max="88" value="0" aria-hidden="true"></progress>
+      </section>
+      <section aria-labelledby="guessed-title">
+        <h2 id="guessed-title">Recalled roles</h2>
+        <ul id="guessed" class="chips chips-role"></ul>
+      </section>
+    </main>
+  </body>
+</html>

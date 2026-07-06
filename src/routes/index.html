@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WAI-ARIA 1.3 Memory Test</title>
+    <script>
+      (() => {
+        try {
+          const theme = localStorage.getItem("theme");
+          if (theme === "dark" || theme === "light") {
+            document.documentElement.dataset.theme = theme;
+          }
+        } catch {}
+      })();
+    </script>
+    <script type="module" src="/src/scripts/main.js"></script>
+  </head>
+  <body data-page="home">
+    <div class="topbar">
+      <button id="theme-toggle" type="button" aria-pressed="false">Dark mode</button>
+    </div>
+    <header>
+      <h1>WAI-ARIA 1.3<br />Memory Test</h1>
+      <p class="lede">
+        How much of
+        <a href="https://www.w3.org/TR/wai-aria-1.3/">WAI-ARIA 1.3</a>
+        can you recall from memory? Pick a quiz.
+      </p>
+    </header>
+    <main>
+      <ul class="menu">
+        <li>
+          <a href="roles/">Roles</a>
+          <p>All 88 roles (abstract roles excluded).</p>
+        </li>
+        <li>
+          <a href="attributes/"><span class="no-caps">aria-*</span> Attributes</a>
+          <p>All 53 states and properties.</p>
+        </li>
+      </ul>
+    </main>
+    <footer>
+      <p>
+        <small
+          >Inspired by
+          <a href="https://codepen.io/plfstr">plfstr's HTML Tags Memory Test</a></small
+        >
+      </p>
+      <p>
+        <small
+          >Created by <a href="https://github.com/camiha">camiha</a> and
+          Claude</small
+        >
+      </p>
+    </footer>
+  </body>
+</html>

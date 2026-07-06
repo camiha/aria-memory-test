@@ -1,0 +1,386 @@
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#ebe8e0, #131316);
+  --ink: light-dark(#191919, #e9e7e2);
+  --paper: light-dark(#faf8f3, #1d1d22);
+  --accent: light-dark(#1b2acc, #9ba2ff);
+  --accent-hover: light-dark(#101a80, #c6caff);
+  --accent-ink: light-dark(#faf8f3, #10102a);
+  --border: 3px solid var(--ink);
+}
+
+/* トグルの選択は OS 設定より優先する */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  padding: 1rem 1rem 3rem;
+  max-width: 42rem;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+/* ホバーは「色が濃くなり下線が太くなる」で統一し、状態変化を見誤らせない */
+a:hover {
+  color: var(--accent-hover);
+  text-decoration-thickness: 4px;
+}
+
+a,
+button,
+.menu li {
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    text-decoration-thickness 0.15s ease,
+    translate 0.06s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a,
+  button,
+  .menu li {
+    transition: none;
+  }
+}
+
+input,
+button {
+  font: inherit;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ---- トップバー ---- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-block-end: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.topbar button {
+  margin-inline-start: auto;
+  padding: 0.2em 0.75em;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.topbar button:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--accent-ink);
+  text-decoration: underline 2px;
+  text-underline-offset: 0.2em;
+}
+
+.topbar button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.topbar button[aria-pressed="true"]:hover {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+/* ---- ヘッダー ---- */
+
+header {
+  margin-block-end: 1.5rem;
+}
+
+h1 {
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+  display: inline-block;
+  border: var(--border);
+  font-size: clamp(1.5rem, 5.5vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.no-caps {
+  text-transform: none;
+}
+
+.lede {
+  margin: 0;
+  max-width: 36rem;
+}
+
+/* ---- トップページのメニュー ---- */
+
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.menu li {
+  position: relative;
+  padding: 1rem 3.5rem 1rem 1.25rem;
+  border: var(--border);
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.menu a {
+  font-size: 1.375rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* リンクをカード全面に広げ、カードのどこを押しても遷移できるようにする */
+.menu a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.menu li::after {
+  content: "\2192";
+  content: "\2192" / "";
+  position: absolute;
+  inset-inline-end: 1.25rem;
+  inset-block-start: 0.875rem;
+  font-size: 1.375rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* ホバーは反転させず、ボーダーと影の強調（+ リンク下線の太化）にとどめる */
+.menu li:hover,
+.menu li:focus-within {
+  border-color: var(--accent-hover);
+  box-shadow: 6px 6px 0 var(--accent-hover);
+}
+
+.menu li:hover::after,
+.menu li:focus-within::after {
+  color: var(--accent-hover);
+}
+
+/* 押下中は影の方向へ沈み込ませ、影を縮めて「押し込み」を見せる */
+.menu li:active {
+  translate: 4px 4px;
+  box-shadow: 2px 2px 0 var(--accent-hover);
+}
+
+.menu p {
+  margin: 0.25rem 0 0;
+}
+
+/* ---- 回答フォーム ---- */
+
+form {
+  position: sticky;
+  top: 0.75rem;
+  z-index: 1;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem;
+  margin-block: 1.5rem 1rem;
+  background: var(--paper);
+  border: var(--border);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+label {
+  font-size: 0.8125rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+input {
+  flex: 1 1 10rem;
+  min-width: 0;
+  padding: 0.4em 0.6em;
+  border: var(--border);
+  background: var(--bg);
+  color: var(--ink);
+  caret-color: var(--accent);
+}
+
+form button {
+  padding: 0.4em 1.25em;
+  border: var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+form button:hover,
+form button:focus-visible {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+  text-decoration: underline 2px;
+  text-underline-offset: 0.2em;
+}
+
+form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  translate: none;
+}
+
+/* ---- フィードバック ---- */
+
+.feedback {
+  min-height: 1.6em;
+  margin-block: 1rem;
+  font-weight: bold;
+}
+
+.feedback:not(:empty) {
+  border-left: 6px solid var(--accent);
+  padding-left: 0.6em;
+}
+
+.feedback p {
+  margin: 0;
+}
+
+/* ---- 成績 ---- */
+
+.score p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin-block: 0 0.5rem;
+}
+
+.score b {
+  font-size: 1.25em;
+}
+
+.score-remain {
+  margin-inline-start: auto;
+}
+
+progress {
+  display: block;
+  width: 100%;
+  height: 1.25rem;
+  border: var(--border);
+  background: var(--paper);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+progress::-webkit-progress-bar {
+  background: var(--paper);
+}
+
+progress::-webkit-progress-value {
+  background: var(--accent);
+}
+
+progress::-moz-progress-bar {
+  background: var(--accent);
+}
+
+/* ---- 回答済み一覧 ---- */
+
+h2 {
+  margin-block: 2rem 0.75rem;
+  font-size: 0.9375rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-block-end: var(--border);
+  padding-block-end: 0.25rem;
+}
+
+.chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chips:empty {
+  display: none;
+}
+
+.chips li {
+  padding: 0.125em 0.6em;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+/* 装飾のみで読み上げには不要なので、代替テキストは空にする */
+.chips-role li::before {
+  content: 'role="';
+  content: 'role="' / "";
+  color: var(--accent);
+}
+
+.chips-role li::after {
+  content: '"';
+  content: '"' / "";
+  color: var(--accent);
+}
+
+.chips-attr li::after {
+  content: '=""';
+  content: '=""' / "";
+  color: var(--accent);
+}
+
+/* ---- フッター ---- */
+
+footer {
+  margin-block-start: 3rem;
+  border-block-start: var(--border);
+  padding-block-start: 0.5rem;
+}

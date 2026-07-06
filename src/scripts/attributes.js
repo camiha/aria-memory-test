@@ -1,0 +1,63 @@
+// WAI-ARIA 1.3 <https://www.w3.org/TR/wai-aria-1.3/> の
+// states and properties（aria-* 属性）の定義に基づく。
+// deprecated の aria-dropeffect と aria-grabbed も、仕様に定義がある以上含める。
+export const ATTRIBUTES = [
+  "aria-activedescendant",
+  "aria-atomic",
+  "aria-autocomplete",
+  "aria-braillelabel",
+  "aria-brailleroledescription",
+  "aria-busy",
+  "aria-checked",
+  "aria-colcount",
+  "aria-colindex",
+  "aria-colindextext",
+  "aria-colspan",
+  "aria-controls",
+  "aria-current",
+  "aria-describedby",
+  "aria-description",
+  "aria-details",
+  "aria-disabled",
+  "aria-dropeffect",
+  "aria-errormessage",
+  "aria-expanded",
+  "aria-flowto",
+  "aria-grabbed",
+  "aria-haspopup",
+  "aria-hidden",
+  "aria-invalid",
+  "aria-keyshortcuts",
+  "aria-label",
+  "aria-labelledby",
+  "aria-level",
+  "aria-live",
+  "aria-modal",
+  "aria-multiline",
+  "aria-multiselectable",
+  "aria-orientation",
+  "aria-owns",
+  "aria-placeholder",
+  "aria-posinset",
+  "aria-pressed",
+  "aria-readonly",
+  "aria-relevant",
+  "aria-required",
+  "aria-roledescription",
+  "aria-rowcount",
+  "aria-rowindex",
+  "aria-rowindextext",
+  "aria-rowspan",
+  "aria-selected",
+  "aria-setsize",
+  "aria-sort",
+  "aria-valuemax",
+  "aria-valuemin",
+  "aria-valuenow",
+  "aria-valuetext"
+];
+
+// aria- を打つ手間を省けるよう、プレフィックスなしの入力も受け付ける
+export function normalizeAttribute(value) {
+  return value.startsWith("aria-") ? value : `aria-${value}`;
+}
